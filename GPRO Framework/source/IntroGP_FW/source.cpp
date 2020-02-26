@@ -1,6 +1,17 @@
 #include "IntroGP_FW/header.h"
 
-int foo(int bar)
+int checkGuess(int age, int guess)
 {
-	return (bar + 1);
+	if (guess < age)
+	{
+		return -1;
+	}
+	else if (guess > age)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }

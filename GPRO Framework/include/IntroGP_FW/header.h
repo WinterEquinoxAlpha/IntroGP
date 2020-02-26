@@ -1,3 +1,3 @@
 #pragma once
 
-int foo(int bar);
+int checkGuess(int age, int guess);
