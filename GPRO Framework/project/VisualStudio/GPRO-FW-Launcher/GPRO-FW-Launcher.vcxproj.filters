@@ -13,9 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Game">
+      <UniqueIdentifier>{2c9a6754-361a-4c6c-8581-cf9e5f6f7f1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\source\GPRO-FW-Launcher\GPRO-FW-Launcher_main.c">
+    <ClCompile Include="..\..\..\source\GPRO-FW-Launcher\Game\GPRO-FW-Battleship.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\GPRO-FW-Launcher\Game\GPRO-FW-Checkers.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\GPRO-FW-Launcher\Game\GPRO-FW-Mancala.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\GPRO-FW-Launcher\Game\GPRO-FW-TicTacToe.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\source\GPRO-FW-Launcher\GPRO-FW-Launcher_main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

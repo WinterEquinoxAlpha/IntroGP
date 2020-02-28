@@ -1,6 +1,4 @@
-
 #include <stdio.h>
-
 
 //-----------------------------------------------------------------------------
 // DECLARATIONS
@@ -19,6 +17,7 @@ enum gs_tictactoe_space_state
 	gs_tictactoe_space_o,		// space is taken by O player
 	gs_tictactoe_space_x,		// space is taken by X player
 };
+
 #ifndef __cplusplus
 typedef		enum gs_tictactoe_space_state		gs_tictactoe_space_state;
 #endif	// !__cplusplus
@@ -62,7 +61,7 @@ inline gs_tictactoe_index gs_tictactoe_reset(gs_tictactoe game)
 
 int launchTicTacToe()
 {
-	gs_tictactoe game = { 0 };
+	gs_tictactoe game;// = { 0 };
 
 	gs_tictactoe_reset(game);
 
