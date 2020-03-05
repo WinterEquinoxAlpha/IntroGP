@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <iostream>
+using namespace std;
 
 //-----------------------------------------------------------------------------
 // DECLARATIONS
@@ -55,6 +57,40 @@ inline gs_tictactoe_index gs_tictactoe_reset(gs_tictactoe game)
 	return total;
 }
 
+inline void gs_tictactoe_printBoard(gs_tictactoe const game)
+{
+	for (int y = 0; y < GS_TICTACTOE_BOARD_HEIGHT; y++)
+	{
+		for (int x = 0; x < GS_TICTACTOE_BOARD_WIDTH; x++)
+		{
+			switch (gs_tictactoe_getSpaceState(game, x, y))
+			{
+			case gs_tictactoe_space_open:
+				cout << " ";
+				break;
+
+			case gs_tictactoe_space_o:
+				cout << "O";
+				break;
+
+			case gs_tictactoe_space_x:
+				cout << "X";
+				break;
+			}
+			if (x < GS_TICTACTOE_BOARD_WIDTH - 1) cout << "|";
+		}
+		cout << endl;
+		if (y < GS_TICTACTOE_BOARD_HEIGHT - 1)
+		{
+			for (int i = 0; i < (GS_TICTACTOE_BOARD_WIDTH * 2) - 1; i++)
+			{
+				cout << (i % 2 == 0 ? "-" : "+");
+			}
+			cout << endl;
+		}
+	}
+}
+
 
 //-----------------------------------------------------------------------------
 // DEFINITIONS
@@ -65,10 +101,129 @@ int launchTicTacToe()
 
 	gs_tictactoe_reset(game);
 
+	bool turn = false;
 
+	gs_tictactoe_printBoard(game);
+
+	int move = 0;
+	int win = 0;
+
+	while (win == 0) {
+		cout << "Where?";
+		cin >> move;
+		move--;
+		system("CLS");
+		bool succ = false;
+		while (!succ)
+		{
+			if (gs_tictactoe_getSpaceState(game, move % 3, floor(move / 3)) == gs_tictactoe_space_open)
+			{
+				succ = true;
+				if (turn) {
+					gs_tictactoe_setSpaceState(game, gs_tictactoe_space_o, move % 3, floor(move / 3));
+					turn = false;
+				}
+				else
+				{
+					gs_tictactoe_setSpaceState(game, gs_tictactoe_space_x, move % 3, floor(move / 3));
+					turn = true;
+				}
+				
+			}
+			else
+			{
+				gs_tictactoe_printBoard(game);
+				cout << "Invalid space:";
+				cin >> move;
+				move--;
+				system("CLS");
+			}
+		}
+		gs_tictactoe_printBoard(game);
+
+		if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_space_x && gs_tictactoe_getSpaceState(game, 1, 0) == gs_tictactoe_space_x && gs_tictactoe_getSpaceState(game, 2, 0) == gs_tictactoe_space_x)
+		{
+			win = 1;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 0, 1) == gs_tictactoe_space_x && gs_tictactoe_getSpaceState(game, 1, 1) == gs_tictactoe_space_x && gs_tictactoe_getSpaceState(game, 2, 1) == gs_tictactoe_space_x)
+		{
+			win = 1;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 0, 2) == gs_tictactoe_space_x && gs_tictactoe_getSpaceState(game, 1, 2) == gs_tictactoe_space_x && gs_tictactoe_getSpaceState(game, 2, 2) == gs_tictactoe_space_x)
+		{
+			win = 1;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_space_x && gs_tictactoe_getSpaceState(game, 0, 1) == gs_tictactoe_space_x && gs_tictactoe_getSpaceState(game, 0, 2) == gs_tictactoe_space_x)
+		{
+			win = 1;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 1, 0) == gs_tictactoe_space_x && gs_tictactoe_getSpaceState(game, 1, 1) == gs_tictactoe_space_x && gs_tictactoe_getSpaceState(game, 1, 2) == gs_tictactoe_space_x)
+		{
+			win = 1;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 2, 0) == gs_tictactoe_space_x && gs_tictactoe_getSpaceState(game, 2, 1) == gs_tictactoe_space_x && gs_tictactoe_getSpaceState(game, 2, 2) == gs_tictactoe_space_x)
+		{
+			win = 1;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_space_x && gs_tictactoe_getSpaceState(game, 1, 1) == gs_tictactoe_space_x && gs_tictactoe_getSpaceState(game, 2, 2) == gs_tictactoe_space_x)
+		{
+			win = 1;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 2, 0) == gs_tictactoe_space_x && gs_tictactoe_getSpaceState(game, 1, 1) == gs_tictactoe_space_x && gs_tictactoe_getSpaceState(game, 0, 2) == gs_tictactoe_space_x)
+		{
+			win = 1;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_space_o && gs_tictactoe_getSpaceState(game, 1, 0) == gs_tictactoe_space_o && gs_tictactoe_getSpaceState(game, 2, 0) == gs_tictactoe_space_o)
+		{
+			win = 2;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 0, 1) == gs_tictactoe_space_o && gs_tictactoe_getSpaceState(game, 1, 1) == gs_tictactoe_space_o && gs_tictactoe_getSpaceState(game, 2, 1) == gs_tictactoe_space_o)
+		{
+			win = 2;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 0, 2) == gs_tictactoe_space_o && gs_tictactoe_getSpaceState(game, 1, 2) == gs_tictactoe_space_o && gs_tictactoe_getSpaceState(game, 2, 2) == gs_tictactoe_space_o)
+		{
+			win = 2;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_space_o && gs_tictactoe_getSpaceState(game, 0, 1) == gs_tictactoe_space_o && gs_tictactoe_getSpaceState(game, 0, 2) == gs_tictactoe_space_o)
+		{
+			win = 2;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 1, 0) == gs_tictactoe_space_o && gs_tictactoe_getSpaceState(game, 1, 1) == gs_tictactoe_space_o && gs_tictactoe_getSpaceState(game, 1, 2) == gs_tictactoe_space_o)
+		{
+			win = 2;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 2, 0) == gs_tictactoe_space_o && gs_tictactoe_getSpaceState(game, 2, 1) == gs_tictactoe_space_o && gs_tictactoe_getSpaceState(game, 2, 2) == gs_tictactoe_space_o)
+		{
+			win = 2;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 0, 0) == gs_tictactoe_space_o && gs_tictactoe_getSpaceState(game, 1, 1) == gs_tictactoe_space_o && gs_tictactoe_getSpaceState(game, 2, 2) == gs_tictactoe_space_o)
+		{
+			win = 2;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 2, 0) == gs_tictactoe_space_o && gs_tictactoe_getSpaceState(game, 1, 1) == gs_tictactoe_space_o && gs_tictactoe_getSpaceState(game, 0, 2) == gs_tictactoe_space_o)
+		{
+			win = 2;
+		}
+		else if (gs_tictactoe_getSpaceState(game, 0, 0) != gs_tictactoe_space_open && gs_tictactoe_getSpaceState(game, 0, 1) != gs_tictactoe_space_open && gs_tictactoe_getSpaceState(game, 0, 2) != gs_tictactoe_space_open && gs_tictactoe_getSpaceState(game, 1, 0) != gs_tictactoe_space_open && gs_tictactoe_getSpaceState(game, 1, 1) != gs_tictactoe_space_open && gs_tictactoe_getSpaceState(game, 1, 2) != gs_tictactoe_space_open && gs_tictactoe_getSpaceState(game, 2, 0) != gs_tictactoe_space_open && gs_tictactoe_getSpaceState(game, 2, 1) != gs_tictactoe_space_open && gs_tictactoe_getSpaceState(game, 2, 2) != gs_tictactoe_space_open)
+		{
+			win = 3;
+		}
+	}
+
+	if (win == 1)
+	{
+		cout << "X Wins" << endl;
+	}
+	else if (win == 2)
+	{
+		cout << "O Wins" << endl;
+	}
+	else
+	{
+		cout << "Tie" << endl;
+	}
 
 	return 0;
 }
-
-
 //-----------------------------------------------------------------------------
