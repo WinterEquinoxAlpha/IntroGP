@@ -652,16 +652,98 @@ inline int gs_battleship_checkOver(gs_battleship game)
 	return loser;
 }
 
+inline void gs_battleship_sunkShip(gs_battleship const game, gs_battleship_index const player, bool activeShips[10])
+{
+	for (int i = 0; i < 5; i++)
+	{
+		if (activeShips[i + (player * 5)])
+		{
+			bool isShipActive = false;
+			for (int y = 0; y < GS_BATTLESHIP_BOARD_HEIGHT; y++)
+			{
+				for (int x = 0; x < GS_BATTLESHIP_BOARD_WIDTH; x++)
+				{
+					if (i == 0 && gs_checkers_getSpaceState(game, -player + 1, x, y) == gs_battleship_space_patrol2)
+					{
+						isShipActive = true;
+					}
+					if (i == 1 && gs_checkers_getSpaceState(game, -player + 1, x, y) == gs_battleship_space_submarine3)
+					{
+						isShipActive = true;
+					}
+					if (i == 2 && gs_checkers_getSpaceState(game, -player + 1, x, y) == gs_battleship_space_destroyer3)
+					{
+						isShipActive = true;
+					}
+					if (i == 3 && gs_checkers_getSpaceState(game, -player + 1, x, y) == gs_battleship_space_battleship4)
+					{
+						isShipActive = true;
+					}
+					if (i == 4 && gs_checkers_getSpaceState(game, -player + 1, x, y) == gs_battleship_space_carrier5)
+					{
+						isShipActive = true;
+					}
+				}
+			}
+			if (!isShipActive)
+			{
+				activeShips[i + (player * 5)] = false;
+				cout << "Sunk ship!" << endl;
+			}
+		}
+	}
+}
+
+inline void fillBoard(gs_battleship game)
+{
+	gs_checkers_setSpaceState(game, gs_battleship_space_patrol2, 0, 0, 0);
+	gs_checkers_setSpaceState(game, gs_battleship_space_patrol2, 0, 0, 1);
+	gs_checkers_setSpaceState(game, gs_battleship_space_submarine3, 0, 1, 0);
+	gs_checkers_setSpaceState(game, gs_battleship_space_submarine3, 0, 1, 1);
+	gs_checkers_setSpaceState(game, gs_battleship_space_submarine3, 0, 1, 2);
+	gs_checkers_setSpaceState(game, gs_battleship_space_destroyer3, 0, 2, 0);
+	gs_checkers_setSpaceState(game, gs_battleship_space_destroyer3, 0, 2, 1);
+	gs_checkers_setSpaceState(game, gs_battleship_space_destroyer3, 0, 2, 2);
+	gs_checkers_setSpaceState(game, gs_battleship_space_battleship4, 0, 3, 0);
+	gs_checkers_setSpaceState(game, gs_battleship_space_battleship4, 0, 3, 1);
+	gs_checkers_setSpaceState(game, gs_battleship_space_battleship4, 0, 3, 2);
+	gs_checkers_setSpaceState(game, gs_battleship_space_battleship4, 0, 3, 3);
+	gs_checkers_setSpaceState(game, gs_battleship_space_carrier5, 0, 4, 0);
+	gs_checkers_setSpaceState(game, gs_battleship_space_carrier5, 0, 4, 1);
+	gs_checkers_setSpaceState(game, gs_battleship_space_carrier5, 0, 4, 2);
+	gs_checkers_setSpaceState(game, gs_battleship_space_carrier5, 0, 4, 3);
+	gs_checkers_setSpaceState(game, gs_battleship_space_carrier5, 0, 4, 4);
+
+	gs_checkers_setSpaceState(game, gs_battleship_space_patrol2, 1, 0, 0);
+	gs_checkers_setSpaceState(game, gs_battleship_space_patrol2, 1, 0, 1);
+	gs_checkers_setSpaceState(game, gs_battleship_space_submarine3, 1, 1, 0);
+	gs_checkers_setSpaceState(game, gs_battleship_space_submarine3, 1, 1, 1);
+	gs_checkers_setSpaceState(game, gs_battleship_space_submarine3, 1, 1, 2);
+	gs_checkers_setSpaceState(game, gs_battleship_space_destroyer3, 1, 2, 0);
+	gs_checkers_setSpaceState(game, gs_battleship_space_destroyer3, 1, 2, 1);
+	gs_checkers_setSpaceState(game, gs_battleship_space_destroyer3, 1, 2, 2);
+	gs_checkers_setSpaceState(game, gs_battleship_space_battleship4, 1, 3, 0);
+	gs_checkers_setSpaceState(game, gs_battleship_space_battleship4, 1, 3, 1);
+	gs_checkers_setSpaceState(game, gs_battleship_space_battleship4, 1, 3, 2);
+	gs_checkers_setSpaceState(game, gs_battleship_space_battleship4, 1, 3, 3);
+	gs_checkers_setSpaceState(game, gs_battleship_space_carrier5, 1, 4, 0);
+	gs_checkers_setSpaceState(game, gs_battleship_space_carrier5, 1, 4, 1);
+	gs_checkers_setSpaceState(game, gs_battleship_space_carrier5, 1, 4, 2);
+	gs_checkers_setSpaceState(game, gs_battleship_space_carrier5, 1, 4, 3);
+	gs_checkers_setSpaceState(game, gs_battleship_space_carrier5, 1, 4, 4);
+}
+
 //-----------------------------------------------------------------------------
 // DEFINITIONS
 
 int launchBattleship()
 {
 	gs_battleship game;// = { 0 };
+	gs_battleship_reset(game);
 	gs_battleship_index player = 0;
 	int row{};
 	int col{};
-	gs_battleship_reset(game);
+	bool activeShips[] = {true, true, true, true, true, true, true, true, true, true};
 
 	// Asks each player to input their ship positions
 	do
@@ -674,12 +756,13 @@ int launchBattleship()
 		system("CLS");
 	} while ((int)player < 2);
 	player = 0;
-
+	//fillBoard(game);
 	int isGameOver = 0;
 	while (isGameOver == 0)
 	{
 		gs_battleship_printBoard(game, player, true);
 		gs_battleship_checkMove(game, player, row, col);
+		gs_battleship_sunkShip(game, player, activeShips);
 		system("pause");
 		system("CLS");
 		gs_battleship_printBoard(game, player, true);
@@ -697,7 +780,7 @@ int launchBattleship()
 	{
 		cout << "Player 0 wins!" << endl;
 	}
-
+	system("pause");
 	return 0;
 }
 //-----------------------------------------------------------------------------

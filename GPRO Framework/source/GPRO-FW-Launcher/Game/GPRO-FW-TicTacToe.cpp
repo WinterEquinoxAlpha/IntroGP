@@ -109,7 +109,7 @@ int launchTicTacToe()
 	int win = 0;
 
 	while (win == 0) {
-		cout << "Where?";
+		cout << "Where? (1-9):";
 		cin >> move;
 		move--;
 		system("CLS");
@@ -223,7 +223,7 @@ int launchTicTacToe()
 	{
 		cout << "Tie" << endl;
 	}
-
+	system("pause");
 	return 0;
 }
 //-----------------------------------------------------------------------------
