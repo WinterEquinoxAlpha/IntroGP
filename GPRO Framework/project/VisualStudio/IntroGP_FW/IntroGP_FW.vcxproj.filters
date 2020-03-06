@@ -18,9 +18,15 @@
     <ClCompile Include="..\..\..\source\IntroGP_FW\source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\IntroGP_FW\Display.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\IntroGP_FW\header.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\IntroGP_FW\Display.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <iostream>
+#include "IntroGP_FW/Display.h"
 using namespace std;
 
 //-----------------------------------------------------------------------------
@@ -55,6 +56,17 @@ inline gs_tictactoe_index gs_tictactoe_reset(gs_tictactoe game)
 			game[xpos][ypos] = gs_tictactoe_space_open;
 	total = (xpos * ypos);
 	return total;
+}
+
+inline void gs_tictactoe_stateToChar(char characters_out[], gs_tictactoe const game)
+{
+	for (int y = 0; y < GS_TICTACTOE_BOARD_HEIGHT; y++)
+	{
+		for (int x = 0; x < GS_TICTACTOE_BOARD_WIDTH; x++)
+		{
+
+		}
+	}
 }
 
 inline void gs_tictactoe_printBoard(gs_tictactoe const game)

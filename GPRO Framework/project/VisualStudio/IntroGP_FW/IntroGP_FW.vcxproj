@@ -19,9 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\source\IntroGP_FW\Display.cpp" />
     <ClCompile Include="..\..\..\source\IntroGP_FW\source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\include\IntroGP_FW\Display.h" />
     <ClInclude Include="..\..\..\include\IntroGP_FW\header.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
